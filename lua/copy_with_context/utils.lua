@@ -51,7 +51,11 @@ function M.format_output(content, file_path, line_range)
   local config = require("copy_with_context.config")
   local comment_line = string.format(config.options.context_format, file_path, line_range)
 
-  return string.format("%s\n%s", content, comment_line)
+  if config.options.copy_content then
+    return string.format("%s\n%s", content, comment_line)
+  else
+    return comment_line
+  end
 end
 
 return M

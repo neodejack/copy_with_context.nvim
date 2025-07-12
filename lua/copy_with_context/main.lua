@@ -2,8 +2,13 @@ local M = {}
 
 function M.copy_with_context(absolute_path, is_visual)
   local utils = require("copy_with_context.utils")
+  local config = require("copy_with_context.config")
   local lines, start_lnum, end_lnum = utils.get_lines(is_visual)
-  local content = table.concat(utils.process_lines(lines), "\n")
+  
+  local content = ""
+  if config.options.copy_content then
+    content = table.concat(utils.process_lines(lines), "\n")
+  end
 
   local output = utils.format_output(
     content,
